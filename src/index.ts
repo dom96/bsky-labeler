@@ -11,6 +11,29 @@ function frameToBytes(type: "error" | "message", body: unknown, t?: string): Uin
 
 const LABEL_VERSION = 1;
 
+// TODO: Signatures. But do I really need them? Guess not.
+
+// export function formatLabel(
+// 	label: UnsignedLabel & { sig?: ArrayBuffer | Uint8Array | At.Bytes },
+// ): FormattedLabel {
+// 	const sig = label.sig instanceof ArrayBuffer
+// 		? toBytes(new Uint8Array(label.sig))
+// 		: label.sig instanceof Uint8Array
+// 		? toBytes(label.sig)
+// 		: label.sig;
+// 	if (!sig || !("$bytes" in sig)) {
+// 		throw new Error("Expected sig to be an object with base64 $bytes, got " + sig);
+// 	}
+// 	return { ...label, ver: LABEL_VERSION, neg: !!label.neg, sig };
+// }
+
+// export function signLabel(label: UnsignedLabel, signingKey: Uint8Array): SignedLabel {
+// 	const toSign = formatLabelCbor(label);
+// 	const bytes = cborEncode(toSign);
+// 	const sig = k256Sign(signingKey, bytes);
+// 	return { ...toSign, sig };
+// }
+
 async function replay(sub: WebSocket, cursor: number | null) {
   // XXX: Read from your DB any rows after `cursor`.
   const rows = [
